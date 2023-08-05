@@ -1,4 +1,4 @@
-import os
+
 import requests
 import tkinter as tk
 from tkinter import ttk
