@@ -3,9 +3,14 @@ import requests
 import tkinter as tk
 from tkinter import ttk
 import webbrowser
+from PIL import Image, ImageTk
+
 
 def open_link(url):
     webbrowser.open_new(url)
+
+from io import BytesIO
+
 
 def getNews():
     global search_query
@@ -31,11 +36,15 @@ def getNews():
         title = article["title"]
         source = article["source"]["name"].rstrip(".com")
         url = article["url"]
+
         text_frame.insert("end", f"\n{i}. {title} - {source}\n", f"link_{i}")
+        text_frame.insert("end", "   ")
         text_frame.tag_configure(f"link_{i}", font=("Helvetica", 16, "bold"))
         text_frame.tag_bind(f"link_{i}", "<Button-1>", lambda e, link=url: open_link(link))
         text_frame.tag_bind(f"link_{i}", "<Enter>", lambda e, tag=f"link_{i}": text_frame.tag_configure(tag, foreground="blue"))
         text_frame.tag_bind(f"link_{i}", "<Leave>", lambda e, tag=f"link_{i}": text_frame.tag_configure(tag, foreground="black"))
+
+        text_frame.insert("end", "\n\n")
 
     text_frame.config(state="disabled")
 
